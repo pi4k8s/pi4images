@@ -3,11 +3,11 @@ FROM arm64v8/ubuntu:18.04
 ENV TZ Asia/Shanghai
 
 RUN  sed -i "s/ports.ubuntu.com/mirrors.aliyun.com/g" /etc/apt/sources.list \
-     && apt-get update && apt-get upgrade -y \
+     && apt update && apt upgrade -y \
      && apt -y install language-pack-zh-hans tzdata \
      && ln -snf /usr/share/zoneinfo/TZ /etc/localtime && echo TZ > /etc/timezone \
      && dpkg-reconfigure -f noninteractive tzdata \
-     && apt-get clean \
+     && apt clean \
      && rm -rf /tmp/* /var/cache/* /usr/share/doc/* /usr/share/man/* /var/lib/apt/lists/*
 
 ENV LANG zh_CN.UTF-8
