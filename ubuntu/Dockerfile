@@ -1,4 +1,7 @@
-FROM arm64v8/ubuntu:18.04
+ARG version=18.04
+ARG baseUbuntu=arm64v8/ubuntu
+
+FROM $baseUbuntu:$version
 
 ENV TZ Asia/Shanghai
 
@@ -14,4 +17,8 @@ ENV LANG zh_CN.UTF-8
 ENV LANGUAGE zh_CN:zh
 ENV LC_ALL zh_CN.UTF-8
 
-# docker build . -t pi4k8s/ubuntu:18.04 -f 18.04.Dockerfile
+# arm64v8
+# docker build . -t pi4k8s/ubuntu:18.04
+
+# x86
+# docker build . -t fastjrun/ubuntu:18.04 --build-arg baseUbuntu=ubuntu  --build-arg version=18.04
