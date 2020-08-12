@@ -17,4 +17,4 @@ RUN cd /opt && apt update && apt install -y wget \
 # docker build . -t pi4k8s/tomcat9:9.0.37-8u201-jdk-ubuntu-18-04
 
 # x86
-# docker build . -t fastjrun/tomcat9:9.0.37-8u201-jdk-ubuntu-18-04 --build-arg baseJdk=pi4k8s/oraclejdk:8u201-jdk-ubuntu-18-04
+# docker build . -t fastjrun/tomcat9:9.0.37-8u201-jdk-ubuntu-18-04 --build-arg baseJdk=fastjrun/oraclejdk:8u201-jdk-ubuntu-18-04
