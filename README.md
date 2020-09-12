@@ -59,3 +59,25 @@ docker restart mysqld-exporter
 ```
 
 
+### zipkin
+
+#### 启动命令
+
+```shell script
+# 运行
+docker run -d --name zipkin-server -p 9411:9411 pi4k8s/zipkin
+# 删除
+docker rm zipkin-server
+# 进入容器
+docker exec -it zipkin-server bash
+```
+
+#### 启停
+```shell script
+# 启动
+docker start zipkin-server
+# 停止
+docker stop zipkin-server
+# 重新启动
+docker restart zipkin-server
+```
