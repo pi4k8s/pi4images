@@ -1,11 +1,11 @@
 ARG version=7
 ARG baseCentos=arm64v8/centos
-
 FROM $baseCentos:$version
 
 RUN  yum install kde-l10n-Chinese glibc-common -y \
      && localedef -c -f UTF-8 -i zh_CN zh_CN.utf8 \
      && export LANG=zh_CN.UTF-8 && echo "export LANG=zh_CN.UTF-8" >> /etc/locale.conf \
+     && yum clean all && rm -rf /var/cache/yum/*
 
 ENV LANG zh_CN.UTF-8
 ENV LANGUAGE zh_CN:zh
