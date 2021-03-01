@@ -26,6 +26,6 @@ ENV LC_ALL zh_CN.UTF-8
 # manifest
 # docker manifest create pi4k8s/ubuntu:18.04 pi4k8s/ubuntu-amd64:18.04 pi4k8s/ubuntu-arm64:18.04
 # docker manifest annotate pi4k8s/ubuntu:18.04 pi4k8s/ubuntu-amd64:18.04 --os linux --arch amd64
-# docker manifest annotate  pi4k8s/ubuntu:18.04 pi4k8s/ubuntu-arm64:18.0 --os linux --arch arm64
+# docker manifest annotate pi4k8s/ubuntu:18.04 pi4k8s/ubuntu-arm64:18.04 --os linux --arch arm64
 # docker manifest push pi4k8s/ubuntu:18.04
 #
