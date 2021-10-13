@@ -7,7 +7,7 @@ RUN apt update \
     && apt update \
     && apt install -y adoptopenjdk-8-hotspot \
     && apt clean \
-    && rm -rf /tmp/* /var/cache/* /usr/share/doc/* /usr/share/man/* /var/lib/apt/lists/*
+    && rm -rf /tmp/*
 
 # arm64
 # docker build . -t pi4k8s/nginx-openjdk8-arm64:1.0 && docker push pi4k8s/nginx-openjdk8-arm64:1.0
