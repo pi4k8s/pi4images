@@ -12,8 +12,6 @@ ADD https://nodejs.org/dist/v14.17.4/node-v14.17.4-linux-$CPU_ARCH.tar.xz /opt
 
 RUN  cd /opt && yum install -y curl git \
      && curl -O -L -s "https://get.jenkins.io/war/$JENKINS_VERSION/jenkins.war" \
-     && mv node-v14.17.4-linux-$CPU_ARCH nodejs \
-     && mv apache-maven-3.8.4 maven \
      && yum clean all && rm -rf /var/cache/yum/* \
 
 ENV PATH="/opt/maven/bin:/opt/nodejs/bin:${PATH}"
