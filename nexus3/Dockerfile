@@ -1,9 +1,6 @@
-ARG version=8u201-jdk-ubuntu-18-04
-ARG baseOracleJdk=pi4k8s/oraclejdk
+FROM pi4k8s/openjdk8:centos7
 
-FROM $baseOracleJdk:$version
-
-ARG NEXUS_VERSION=3.22.1-02
+ARG NEXUS_VERSION=3.37.3-02
 
 ADD start_nexus.sh /opt
 
@@ -13,23 +10,28 @@ ENV JVM_MAXIMUM_MEMORY=1560M
 
 ENV JVM_MAXDIRECTMEMORYSIZE=1024M
 
-RUN cd /opt && apt update && apt install -y wget \
-    && wget -q "https://github.com/fastjrun/soft/releases/download/nexus-$NEXUS_VERSION/nexus-$NEXUS_VERSION.tar.gz" \
-    && tar -zxf "nexus-$NEXUS_VERSION.tar.gz" \
-    && rm -rf "nexus-$NEXUS_VERSION.tar.gz" \
+RUN cd /opt && yum install -y curl \
+    && curl -O -L -s "https://download.sonatype.com/nexus/3/nexus-$NEXUS_VERSION-unix.tar.gz" \
+    && tar -zxf "nexus-$NEXUS_VERSION-unix.tar.gz" \
+    && rm -rf "nexus-$NEXUS_VERSION-unix.tar.gz" \
     && mv /opt/nexus-3* /opt/nexus-3 \
     && sed -i 1,4d /opt/nexus-3/bin/nexus.vmoptions \
     && mv /opt/nexus-3/bin/nexus.vmoptions /opt/nexus-3/bin/nexus.vmoptions.tmp \
     && chmod a+x /opt/start_nexus.sh \
-    && apt remove -y --purge wget && apt clean \
-    && rm -rf /tmp/* /var/cache/* /usr/share/doc/* /usr/share/man/* /var/lib/apt/lists/*
+    && yum clean all && rm -rf /var/cache/yum/*
 
 ENTRYPOINT  /opt/start_nexus.sh
 
 VOLUME /opt/sonatype-work
 
-# arm64v8
-# docker build . -t pi4k8s/nexus3:3.22.1-02
+# arm64
+# docker build . -t pi4k8s/nexus3-arm64:openjdk8 && docker push pi4k8s/nexus3-arm64:openjdk8
 
-# x86
-# docker build . -t fastjrun/nexus3:3.22.1-02 --build-arg baseOracleJdk=fastjrun/oraclejdk
+# amd64
+# docker build . -t pi4k8s/nexus3-amd64:openjdk8 && docker push pi4k8s/nexus3-amd64:openjdk8
+
+# manifest
+# docker manifest create pi4k8s/nexus3:openjdk8 pi4k8s/nexus3-amd64:openjdk8 pi4k8s/nexus3-arm64:openjdk8
+# docker manifest annotate pi4k8s/nexus3:openjdk8 pi4k8s/nexus3-amd64:openjdk8 --os linux --arch amd64
+# docker manifest annotate pi4k8s/nexus3:openjdk8 pi4k8s/nexus3-arm64:openjdk8 --os linux --arch arm64
+# docker manifest push pi4k8s/nexus3:openjdk8
