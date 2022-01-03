@@ -11,7 +11,7 @@ RUN  cd /opt && yum install -y curl git \
      && curl -O -L -s "https://dlcdn.apache.org/maven/maven-3/3.8.4/binaries/apache-maven-3.8.4-bin.tar.gz" \
      && curl -O -L -s "https://nodejs.org/dist/v14.17.4/node-v14.17.4-linux-$CPU_ARCH.tar.xz" \
      && tar -zxf apache-maven-3.8.4-bin.tar.gz && mv apache-maven-3.8.4 maven \
-     && tar -zxf node-v14.17.4-linux-$CPU_ARCH.tar.xz && mv node-v14.17.4-linux-$CPU_ARCH nodejs \
+     && tar -xf node-v14.17.4-linux-$CPU_ARCH.tar.xz && mv node-v14.17.4-linux-$CPU_ARCH nodejs \
      && rm -f apache-maven-3.8.4-bin.tar.gz && rm -f node-v14.17.4-linux-$CPU_ARCH.tar.xz \
      && yum clean all && rm -rf /var/cache/yum/* \
 
