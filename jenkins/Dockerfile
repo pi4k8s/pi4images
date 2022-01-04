@@ -13,9 +13,9 @@ RUN  cd /opt && yum install -y curl git \
      && tar -zxf apache-maven-3.8.4-bin.tar.gz && mv apache-maven-3.8.4 maven \
      && tar -xf node-v14.17.4-linux-$CPU_ARCH.tar.xz && mv node-v14.17.4-linux-$CPU_ARCH nodejs \
      && rm -f apache-maven-3.8.4-bin.tar.gz && rm -f node-v14.17.4-linux-$CPU_ARCH.tar.xz \
-     && yum clean all && rm -rf /var/cache/yum/* \
+     && yum clean all && rm -rf /var/cache/yum/*
 
-ENV PATH="/opt/maven/bin:/opt/nodejs/bin:${PATH}"
+ENV PATH "/opt/maven/bin:/opt/nodejs/bin:${PATH}"
 
 ENTRYPOINT java $JAVA_OPTS -jar /opt/jenkins.war
 
