@@ -31,9 +31,9 @@ node {
         }catch(exc){
             echo "some thing wrong"
         }
-        sh 'docker manifest create pi4k8s/openjdk8:centos7 pi4k8s/tomcat9-amd64:openjdk8 pi4k8s/tomcat9-arm64:openjdk8'
-        sh 'docker manifest annotate pi4k8s/openjdk8:centos7 pi4k8s/tomcat9-amd64:openjdk8 --os linux --arch amd64'
-        sh 'docker manifest annotate pi4k8s/openjdk8:centos7 pi4k8s/tomcat9-arm64:openjdk8 --os linux --arch arm64'
+        sh 'docker manifest create pi4k8s/openjdk8:centos7 pi4k8s/openjdk8-amd64:centos7 pi4k8s/openjdk8-arm64:centos7'
+        sh 'docker manifest annotate pi4k8s/openjdk8:centos7 pi4k8s/openjdk8-amd64:centos7 --os linux --arch amd64'
+        sh 'docker manifest annotate pi4k8s/openjdk8:centos7 pi4k8s/openjdk8-arm64:centos7 --os linux --arch arm64'
         sh 'docker manifest push pi4k8s/openjdk8:centos7'
     }
     stage('cleanWs'){
