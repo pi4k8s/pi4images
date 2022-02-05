@@ -26,7 +26,11 @@ node {
         )
     }
     stage('manifest'){
-        sh 'set +e && docker manifest rm pi4k8s/openjdk8:centos7 && set -e'
+        try {
+            sh 'docker manifest rm pi4k8s/openjdk8:centos7'
+        }catch(exc){
+            echo "some thing wrong"
+        }
         sh 'docker manifest create pi4k8s/openjdk8:centos7 pi4k8s/tomcat9-amd64:openjdk8 pi4k8s/tomcat9-arm64:openjdk8'
         sh 'docker manifest annotate pi4k8s/openjdk8:centos7 pi4k8s/tomcat9-amd64:openjdk8 --os linux --arch amd64'
         sh 'docker manifest annotate pi4k8s/openjdk8:centos7 pi4k8s/tomcat9-arm64:openjdk8 --os linux --arch arm64'
