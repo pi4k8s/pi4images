@@ -1,6 +1,6 @@
 FROM pi4k8s/centos:7
 
-RUN yum install -y java-1.8.0-openjdk \
+RUN yum install -y java-1.8.0-openjdk java-1.8.0-openjdk-devel \
     && yum clean all && rm -rf /var/cache/yum/*
 
 # arm64
