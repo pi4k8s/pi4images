@@ -10,7 +10,7 @@ node {
     stage('parallel docker build') {
         parallel (
                 'docker build && push jenkins': {
-                    sh 'cd jenkins && docker build . -t pi4k8s/jenkins-arm64:openjdk8-2.327 --build-arg CPU_ARCH=arm64'
+                    sh 'cd jenkins && docker build . -t pi4k8s/jenkins-arm64:openjdk8-2.327'
                     sh 'docker push pi4k8s/jenkins-arm64:openjdk8-2.327'
                 },
                 'docker build && push openjdk amd64': {
