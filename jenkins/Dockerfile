@@ -5,6 +5,7 @@ ARG JENKINS_VERSION=2.327
 ENV JAVA_OPTS='-Xmx1024m -Xms1024m'
 
 RUN  cd /opt && yum install -y curl git make gcc+ gcc-c++ \
+     && localedef -c -f UTF-8 -i zh_CN zh_CN.utf8 \
      && curl -O -L -s "https://get.jenkins.io/war/$JENKINS_VERSION/jenkins.war" \
      && curl -O -L -s "https://dlcdn.apache.org/maven/maven-3/3.8.4/binaries/apache-maven-3.8.4-bin.tar.gz" \
      && curl -fsSL https://rpm.nodesource.com/setup_14.x | bash - \
@@ -13,7 +14,7 @@ RUN  cd /opt && yum install -y curl git make gcc+ gcc-c++ \
      && rm -f apache-maven-3.8.4-bin.tar.gz \
      && yum clean all && rm -rf /var/cache/yum/*
 
-ENV PATH "/opt/maven/bin:/opt/nodejs/bin:${PATH}"
+ENV PATH "/opt/maven/bin:${PATH}"
 
 ENTRYPOINT java $JAVA_OPTS -jar /opt/jenkins.war
 
