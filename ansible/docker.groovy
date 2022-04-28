@@ -10,7 +10,7 @@ node {
     stage('parallel docker build') {
         parallel (
                 'docker build && push ansible': {
-                    sh 'cd openjdk && docker build . -t pi4k8s/ansible-arm64:centos7'
+                    sh 'cd ansible && docker build . -t pi4k8s/ansible-arm64:centos7'
                     sh 'docker push pi4k8s/ansible-arm64:centos7'
                 },
                 'docker build && push ansible amd64': {
