@@ -7,10 +7,10 @@ node {
         )
     }
     stage('git chekout') {
-        git credentialsId: 'gogs11001', branch: "master", url: 'http://gogs.fastjrun.com:11001/devops/myDocker.git'
+        git branch: "master", url: 'https://gitee.com/fastjrun/pi4images.git'
     }
     stage('dockerFile') {
-        dir('common/ansible'){
+        dir('ansible'){
             stash 'ansible'
         }
     }
@@ -18,17 +18,17 @@ node {
         parallel (
                 'docker build && push ansible': {
                     echo "${params.ansible_version}"
-                    sh "cd common/ansible && docker build . -t pi4k8s/ansible-centos7-arm64:${params.ansible_version} --build-arg ANSIBLE_VERSION=${params.ansible_version}"
+                    sh "cd ansible && docker build . -t pi4k8s/ansible-centos7-arm64:${params.ansible_version} --build-arg ANSIBLE_VERSION=${params.ansible_version}"
                     sh "docker push pi4k8s/ansible-centos7-arm64:${params.ansible_version}"
                 },
                 'docker build && push ansible amd64': {
                     node('amd64') {
-                        dir('common/ansible'){
+                        dir('ansible'){
                             unstash 'ansible'
                         }
                         unstash 'ansible'
                         echo "${params.ansible_version}"
-                        sh "cd common/ansible && docker build . -t pi4k8s/ansible-centos7-amd64:${params.ansible_version} --build-arg ANSIBLE_VERSION=${params.ansible_version}"
+                        sh "cd ansible && docker build . -t pi4k8s/ansible-centos7-amd64:${params.ansible_version} --build-arg ANSIBLE_VERSION=${params.ansible_version}"
                         sh "docker push pi4k8s/ansible-centos7-amd64:${params.ansible_version}"
                     }
                 }
