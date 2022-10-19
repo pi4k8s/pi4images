@@ -7,7 +7,7 @@ node {
         )
     }
     stage('git chekout') {
-        git branch: "master", url: 'https://gitee.com/fastjrun/pi4images.git'
+        git branch: "master", url: 'https://gitee.com/pi4k8s/pi4images.git'
     }
     stage('dockerFile') {
         dir('ansible'){
