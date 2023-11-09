@@ -18,7 +18,7 @@ node {
         parallel (
                 'docker build && push helm': {
                     echo "${params.helm_version}"
-                    sh "cd helm && docker build . -t pi4k8s/helm-arm64:${params.helm_version} --build-arg helm_version=${params.helm_version}"
+                    sh "cd helm && docker build . -t pi4k8s/helm-arm64:${params.helm_version} --build-arg HELM_VERSION=${params.helm_version} --build-arg ARCH=arm64"
                     sh "docker push pi4k8s/helm-arm64:${params.helm_version}"
                 },
                 'docker build && push helm amd64': {
@@ -28,7 +28,7 @@ node {
                         }
                         unstash 'helm'
                         echo "${params.helm_version}"
-                        sh "cd helm && docker build . -t pi4k8s/helm-amd64:${params.helm_version} --build-arg helm_version=${params.helm_version}"
+                        sh "cd helm && docker build . -t pi4k8s/helm-amd64:${params.helm_version} --build-arg HELM_VERSION=${params.helm_version} --build-arg ARCH=amd64"
                         sh "docker push pi4k8s/helm-amd64:${params.helm_version}"
                     }
                 }
